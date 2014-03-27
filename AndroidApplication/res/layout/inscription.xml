@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/android_picture"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/normal_padding"
+        android:src="@drawable/android"
+        android:contentDescription="@string/image_content_description" />
+
+    <TextView
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:gravity="center_horizontal"
+         android:text="@string/pseudo"
+         android:textStyle="bold"
+         android:textColor="@color/blue_color"
+         />
+    <EditText
+        android:id="@+id/user_pseudo"
+        android:layout_width="@dimen/large_padding"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:inputType="text" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+       android:gravity="center_horizontal"
+        android:text="@string/password"
+        android:textStyle="bold"
+        android:textColor="@color/blue_color"
+        />
+    <EditText
+        android:id="@+id/user_password"
+        android:layout_width="@dimen/large_padding"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:inputType="textPassword" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/email"
+        android:textStyle="bold"
+        android:textColor="@color/blue_color"
+        />
+
+    <EditText
+        android:id="@+id/user_email"
+        android:layout_width="@dimen/large_padding"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:layout_gravity="center" />
+
+    <RadioGroup
+        android:id="@+id/group"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:checkedButton="@+id/radio2"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+        <RadioButton
+            android:id="@+id/radio1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="femme"
+            />
+        <RadioButton
+            android:id="@+id/radio2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="homme"
+            />
+    </RadioGroup>
+    <!-- <CheckBox
+         android:id="@+id/mega"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Mega fonction !"
+         />-->
+    <Button
+        android:id="@+id/inscrire"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="inscrire"
+        android:gravity="center"
+        />
+    <!--<Button
+        android:id="@+id/raz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RAZ"
+        />-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="aide:"
+        />
+    <TextView
+        android:id="@+id/help"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:text="Vous devez cliquer sur le bouton «inscrire» pour valider votre inscription."
+        />
+</LinearLayout>
