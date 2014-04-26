@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="RALLY-QUIZ"
+        android:textStyle="bold"
+        android:textColor="@color/blue_color"
+        android:layout_weight="0.17"
+        android:textSize="@android:dimen/app_icon_size"
+        android:textIsSelectable="false" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" Jouer"
+        android:id="@+id/jouer"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.03"
+        android:textSize="@dimen/normal_padding"
+        android:textAlignment="center" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Quiter"
+        android:id="@+id/decone"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.17"
+        android:textSize="@dimen/normal_padding" />
+
+</LinearLayout>

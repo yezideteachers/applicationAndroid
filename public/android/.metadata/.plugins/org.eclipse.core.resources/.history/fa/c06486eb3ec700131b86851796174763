@@ -1,0 +1,59 @@
+package android;
+
+
+import java.sql.*;
+//import com.mysql.jdbc.Driver; 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class serveurBD {
+
+	/**
+	 * @param args
+	 */
+	 private static final String dbClassName = "com.mysql.jdbc.Driver";
+	  private static final String CONNECTION =
+	                          "jdbc:mysql://127.0.0.1/L3IE";
+	  
+      public void connexionBD(String  dbc, String con )throws
+      ClassNotFoundException,SQLException{
+    	  System.out.println(dbClassName);
+  	    // Class.forName(xxx) loads the jdbc classes and
+  	    // creates a drivermanager class factory
+  	    Class.forName(dbClassName);
+
+  	    // Properties for user and password. Here the user and password are both 'paulr'
+  	    Properties p = new Properties();
+  	    p.put("user","root");
+  	    p.put("password","diallo");
+
+  	    // Now try to connect
+  	    Connection c = DriverManager.getConnection(CONNECTION,p);
+      }
+	  public static void main(String[] args) throws
+	                             ClassNotFoundException,SQLException
+	  {
+	    System.out.println(dbClassName);
+	    // Class.forName(xxx) loads the jdbc classes and
+	    // creates a drivermanager class factory
+	    Class.forName(dbClassName);
+
+	    // Properties for user and password. Here the user and password are both 'paulr'
+	    Properties p = new Properties();
+	    p.put("user","root");
+	    p.put("password","diallo");
+
+	    // Now try to connect
+	    Connection c = DriverManager.getConnection(CONNECTION,p);
+	    Statement st = c.createStatement();
+        st.execute("INSERT into joueur VALUES('test tuple')");
+        //st.close();
+	    System.out.println("It works !");
+	    c.close();
+	    }
+	}

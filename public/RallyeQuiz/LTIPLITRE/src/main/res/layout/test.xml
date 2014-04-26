@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/m"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+       />
+    <Button
+        android:id="@+id/be"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dip"
+        android:text="envoie" />
+    <TextView
+        android:id="@+id/r"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="RALLY-QUIZ"
+        android:textStyle="bold"
+        android:textColor="@color/blue_color"
+        android:layout_weight="0.17"
+        android:textSize="@android:dimen/app_icon_size"
+        android:textIsSelectable="false" />
+
+
+</LinearLayout>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">RallyeQuiz</string>
+    <string name="hello_world">Hello world !</string>
+    <string name="penalite">Vous êtes bannis pendant 20s</string>
+    <string name="logout">Logout Me</string>
+    <string name="rememberme">se souvenir de moi</string>
+    <string name="notification">Notification</string>
+    <string name="notification_title">Connexion réussie</string>
+    <string name="notification_desc">Votre session est active</string>
+    <string name="register">S inscrire</string>
+    <string name="fullname">pseudo</string>
+    <string name="alreadyregistred">Vous etes deja enregistrer. Me connecter!</string>
+    <string name="register_">S inscrire</string>
+    <string name="login">Se Connecter</string>
+    <string name="login_">Se Connecter</string>
+    <string name="new_account">J ai pas de compte. M inscrire!</string>
+    <string name="action_settings">Paramettre</string>
+    <string name="title_activity_main">AndroidApplication</string>
+    <string name="image_content_description">Un Android avec un chien</string>
+    <string name="create_account">Créer un compte</string>
+    <string name="pseudo">pseudo</string>
+    <string name="email">Adresse email</string>
+    <string name="password">Mot de passe</string>
+    <string name="connect">Se connecter</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="provider_enabled">The provider %s is now enabled</string>
+    <string name="provider_disabled">The provider %s is now disabled</string>
+    <string name="provider_new_status">The provider %1$s has now a new status %2$s</string>
+    <string name="new_location">New Location : Latitude = %1$s, Longitude = %2$s, Altitude = %3$s avec une précision de %4$s mètres </string>
+    <string name="title_activity_diag">DiagActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_dashboard">DashboardActivity</string>
+
+
+</resources>

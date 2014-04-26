@@ -1,0 +1,29 @@
+package android;
+
+
+import java.sql.*;
+//import com.mysql.jdbc.Driver; 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class serveurBD {
+
+	/**
+	 * @param args
+	 */
+	  ConnexionBD connect;
+	  public static void main(String[] args) 
+	  {
+	    
+	    Statement st = c.createStatement();
+        st.execute("INSERT into joueur VALUES('test tuple')");
+        st.close();
+	    System.out.println("It works !");
+	    c.close();
+	    }
+	}

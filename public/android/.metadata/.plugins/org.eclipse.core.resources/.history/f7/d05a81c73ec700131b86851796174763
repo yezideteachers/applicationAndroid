@@ -1,0 +1,16 @@
+package android;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Properties;
+
+public class ConnexionBD {
+	
+	try{
+        String url = "jdbc:sqlserver://localhost:3888;databaseName=test;user=test;password=test";
+        Connection con = DriverManager.getConnection(url);
+    } catch(SQLException se){
+        System.out.println("SQL exception: " + se.getMessage());
+    }
+}
