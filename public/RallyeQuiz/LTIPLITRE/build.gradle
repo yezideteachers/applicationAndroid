@@ -22,9 +22,9 @@ dependencies {
     compile 'com.google.android.gms:play-services:4.3.23'
     compile 'com.android.support:appcompat-v7:19.+'
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile files('C:/Users/yezide/AndroidStudioProjects/public/RallyeQuiz/libs/robotium-solo-5.1.jar')
-    compile files('C:/Users/yezide/AndroidStudioProjects/public/RallyeQuiz/libs/mockito-all-1.9.5.jar')
-    compile files('C:/Users/yezide/AndroidStudioProjects/public/RallyeQuiz/libs/maps.jar')
-    compile files('C:/Users/yezide/AndroidStudioProjects/public/RallyeQuiz/libs/dexmaker-mockito-1.0.jar')
     compile files('C:/Users/yezide/AndroidStudioProjects/public/RallyeQuiz/libs/dexmaker-1.0.jar')
+    compile files('C:/Users/yezide/AndroidStudioProjects/public/RallyeQuiz/libs/dexmaker-mockito-1.0.jar')
+    compile files('C:/Users/yezide/AndroidStudioProjects/public/RallyeQuiz/libs/mockito-all-1.9.5.jar')
+    compile files('C:/Users/yezide/AndroidStudioProjects/public/RallyeQuiz/libs/robotium-solo-5.1.jar')
+    compile files('C:/Users/yezide/AndroidStudioProjects/public/RallyeQuiz/libs/maps.jar')
 }

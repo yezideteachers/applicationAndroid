@@ -16,7 +16,7 @@ import fr.unice.rallyequiz.ltiplitre.R;
  */
 public class JoueurTest extends InstrumentationTestCase {
 
-    /* public void verifiePosition() throws Exception {
+    /*public void verifiePosition() throws Exception {
         LocationManager locationManager = (LocationManager) Context.getSystemService(Context.LOCATION_SERVICE);
     }
        postion afficher sous format de Text

@@ -27,6 +27,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import static android.widget.Toast.LENGTH_LONG;
 
@@ -36,8 +37,6 @@ public class Maps extends Activity implements LocationListener,Runnable{
     Epreuve e = new Epreuve(43.72, 07.24);
     LatLng l1 = new LatLng(e.getPositionx(),e.getPositiony());
     private LocationManager locationManager;
-
-
     double latitude;
     double longitude;
     double altitude;
@@ -50,8 +49,9 @@ public class Maps extends Activity implements LocationListener,Runnable{
     double distance;
     private ProgressDialog mprogressDialog;
 
-    ArrayList array = new ArrayList<CharSequence[]>();
 
+    ArrayList array = new ArrayList<CharSequence[]>();
+    long startTime= System.nanoTime();
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
@@ -63,12 +63,13 @@ public class Maps extends Activity implements LocationListener,Runnable{
      locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 
+
         provider = locationManager.getBestProvider(criteria, false);
         location = locationManager.getLastKnownLocation(provider);
         if (location != null) {
             this.latitude = location.getLatitude();
             this.longitude = location.getLongitude();
-
+            startTime = System.nanoTime();
         }
         else{
             Toast.makeText(this, "couldn't get provider", LENGTH_LONG).show();
@@ -77,7 +78,6 @@ public class Maps extends Activity implements LocationListener,Runnable{
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 
         e.positioneperueve(map);
-
 
     }
 
@@ -108,9 +108,29 @@ public class Maps extends Activity implements LocationListener,Runnable{
         return super.onOptionsItemSelected(item);
     }
 
+    public ArrayList<String []> listeQuestions(String s){
+            String []table = s.split("__");
+            ArrayList<String[]> listeQuiz = new ArrayList(table.length);
+            for(int i=0; i<table.length; i++){
+                listeQuiz.add(table[i].split("#"));
 
+            }
+
+        return listeQuiz;
+    }
     public void questionnerJoueur() {
-        CharSequence [] qcm = {"Le GC existe il dans le langage C","faux","vrai","faux"};
+        Random random = new Random();
+
+        int indexQuiz = random.nextInt(2); //pour le moment on que deux questions dans la BD
+        String s=Question.recupererLesQuestions();
+        String[] question;
+        if(Question.recupererLesQuestions()!=null) {
+            question  = listeQuestions(s).get(indexQuiz);
+        }
+        else{
+            question = new String[]{"Question ", " ", " ", " "};
+        }
+        CharSequence [] qcm = {question[0],question[1],question[2],question[3]};
         final CharSequence[] items = new CharSequence[2];
         items[0]=qcm[2];
         items[1]=qcm[3];
@@ -121,7 +141,6 @@ public class Maps extends Activity implements LocationListener,Runnable{
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String choice = (String) items[which];
-
                 try {
                     verifier(choice);
                 } catch (InterruptedException e1) {
@@ -135,7 +154,7 @@ public class Maps extends Activity implements LocationListener,Runnable{
         });
 
 
-        mprogressDialog = new ProgressDialog(this);
+       mprogressDialog = new ProgressDialog(this);
         // Message de la barre de progression
         //  mprogressDialog.setMessage("Chargement en cours...");
         // Titre de la barre de progression
@@ -158,11 +177,8 @@ public class Maps extends Activity implements LocationListener,Runnable{
         }
         else {
 
-            Intent intent = new Intent(Maps.this, Question.class);
+            Intent intent = new Intent(Maps.this, Penalite.class);
             startActivity(intent);
-           /* s="mauvaise reponse : "+ch[1];
-            Toast.makeText(this,s , LENGTH_LONG).show();
-            Thread.sleep(10000);*/
 
         }
 
@@ -173,8 +189,7 @@ public class Maps extends Activity implements LocationListener,Runnable{
     public void onLocationChanged(Location location) {
         latitude = location.getLatitude();
         longitude = location.getLongitude();
-
-
+        Question.recupererLesQuestions();
         Marker marker =map.addMarker(new MarkerOptions()
                 .position(new LatLng(latitude,longitude))
                 .title("Joueur")
@@ -196,15 +211,35 @@ public class Maps extends Activity implements LocationListener,Runnable{
         questionner le joueur quand il arrive à 1km du point final
          */
         Thread thread = new Thread(this);
-        if(distance<=1.0){
-            this.questionnerJoueur();
-            thread.start();
+        if(distance<=1.0 && distance>=0.2){
+           this.questionnerJoueur();
+           thread.start();
+        }
+        /*si le joueur est arrivé on lui affichage le temps qu'il a mis*/
+        else if(distance>=0 && distance<=0.2){
+            String s=TempsCourse.formatTime(System.nanoTime()-startTime);
+            afficherScore(s);
+            TempsCourse.stockerScore(startTime);
         }
 
 
     }
+  /*cette fonction affiche le temps que l'utilisateur a mis pour arrivé
+    @return void*/
+   public void afficherScore(String time){
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle("Score...");
+        alertDialog.setMessage("Vous avez fait :"+time);
+        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+// here you can add functions
+            }
+        });
+        alertDialog.setIcon(R.drawable.android);
+        alertDialog.show();
+    }
 
-    public boolean isLocationChanged(Location location){
+    public boolean isLocationChanged(){
         return (location != null);
     }
 
@@ -290,8 +325,8 @@ public class Maps extends Activity implements LocationListener,Runnable{
             Thread.sleep(3000);
             handler.sendEmptyMessage(6);
             mprogressDialog.dismiss();
-            Intent intent = new Intent(Maps.this, Question.class);
-            startActivity(intent);
+            Intent intent = new Intent(Maps.this, Penalite.class);
+            //startActivity(intent);
 
         } catch (InterruptedException e) {
             e.printStackTrace();

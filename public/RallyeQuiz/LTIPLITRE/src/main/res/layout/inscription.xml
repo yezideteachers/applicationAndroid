@@ -22,35 +22,26 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dip"
-            android:text="@string/register"
+            android:text="Inscription"
             android:textSize="25sp"
             android:textStyle="bold" />
         <!--  Name Label -->
         <TextView
+            android:id="@+id/pseudo"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/fullname" />
         <!--  Name TextField -->
         <EditText
-            android:id="@+id/registerName"
+            android:id="@+id/pse"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName" />
 
-        <!--  Email Label -->
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/email" />
-        <!--  Email TextField -->
-        <EditText
-            android:id="@+id/registerEmail"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress" />
 
         <!--  Password Label -->
         <TextView
+
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dip"
@@ -58,14 +49,14 @@
 
         <!--  Password TextField -->
         <EditText
-            android:id="@+id/registerPassword"
+            android:id="@+id/pass"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword" />
 
         <!--  Register Button -->
         <Button
-            android:id="@+id/btnRegister"
+            android:id="@+id/inscrip"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"

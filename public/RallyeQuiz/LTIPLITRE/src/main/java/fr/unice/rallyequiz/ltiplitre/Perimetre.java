@@ -28,11 +28,6 @@ public class Perimetre extends FragmentActivity {
         alert.show();
     }
 
-
-
-
-
-
     public double distanceEntreDeuxPoints(LatLng l1, LatLng l2) {
         int R =  6371 ;
         double lat1 = l1.latitude/d2r;
@@ -75,12 +70,7 @@ public class Perimetre extends FragmentActivity {
         latitude = location.getLatitude();
         longitude = location.getLongitude();
         altitude = location.getAltitude();
-        accuracy = location.getAccuracy();
-
-        String msg = String.format(
-                getResources().getString(R.string.new_location), latitude,
-                longitude, altitude, accuracy);
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+    
     }*/
 
 

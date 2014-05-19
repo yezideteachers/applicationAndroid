@@ -8,8 +8,8 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="C:\Users\yezide\AndroidStudioProjects\public\RallyeQuiz" />
-            <option value="C:\Users\yezide\AndroidStudioProjects\public\RallyeQuiz\LTIPLITRE" />
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/LTIPLITRE" />
           </set>
         </option>
       </GradleProjectSettings>

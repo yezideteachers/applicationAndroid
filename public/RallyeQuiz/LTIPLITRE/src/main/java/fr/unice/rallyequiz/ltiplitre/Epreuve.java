@@ -3,13 +3,11 @@ package fr.unice.rallyequiz.ltiplitre;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.support.v4.app.FragmentActivity;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import java.lang.Object.*;
 
 
 public class Epreuve extends FragmentActivity{
@@ -48,7 +46,7 @@ public class Epreuve extends FragmentActivity{
 
         map.setMyLocationEnabled(true);
 
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(epreuve1, 13));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(epreuve1, 15));
         map.addMarker(new MarkerOptions()
                 .title("E1")
                 .snippet("epreuve 1")

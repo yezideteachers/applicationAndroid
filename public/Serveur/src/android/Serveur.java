@@ -15,6 +15,42 @@ public class Serveur {
     private static BufferedReader bufferedReader;
     private static String message;
  
+   public static String renvoyerLesQuestions(){
+    	String ques = serveurBD.recupererQuestions();
+    	
+    	return ques;  	
+    }
+	
+	
+	
+	 public static void ecrireSc(){
+	  try {
+		clientSocket = serverSocket.accept();
+		System.out.print("connexion etablie 2\n");
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}   //accept the client connection
+     
+       try {
+    	   System.out.println("debog 1 \n");
+		inputStreamReader = new InputStreamReader(clientSocket.getInputStream());
+		bufferedReader = new BufferedReader(inputStreamReader); //get the client message
+		 System.out.println("debog 2 \n");
+	       message = bufferedReader.readLine();
+	       System.out.println(message + "lalalalalalalala \n");
+	       serveurBD.ecrireScore(Long.parseLong(message)/100);
+	       System.out.println(message + "lalalalalalalala \n");
+	       inputStreamReader.close();
+	       clientSocket.close();
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+   
+   }
+   
+   
     /**
 	 * @param args
 	 */
@@ -26,7 +62,7 @@ public class Serveur {
             serverSocket = new ServerSocket(8099);  //Server socket
    
         } catch (IOException e) {
-            System.out.println("Could not listen on port: 4443");
+            System.out.println("Could not listen on port: 54446");
         }
   
         System.out.println("serveur demarer et ecoute sur le port 4443");
@@ -35,12 +71,17 @@ public class Serveur {
             try {
  
                 clientSocket = serverSocket.accept();   //accept the client connection
-                inputStreamReader = new InputStreamReader(clientSocket.getInputStream());
+              /*  inputStreamReader = new InputStreamReader(clientSocket.getInputStream());
                 bufferedReader = new BufferedReader(inputStreamReader); //get the client message
                 message = bufferedReader.readLine();
- 
-                System.out.println(message);
-                inputStreamReader.close();
+				*/
+				 PrintWriter p = new PrintWriter(clientSocket.getOutputStream());
+                p.write(renvoyerLesQuestions());
+                p.flush();
+                p.close();
+				System.out.println(renvoyerLesQuestions());
+                
+               // inputStreamReader.close();
                 clientSocket.close();
  
             } catch (IOException ex) {

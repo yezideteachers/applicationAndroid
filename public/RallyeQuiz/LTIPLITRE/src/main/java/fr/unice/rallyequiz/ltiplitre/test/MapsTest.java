@@ -78,7 +78,7 @@ public class MapsTest extends ActivityInstrumentationTestCase2<Maps> {
     public void isLocationChagedTest(Location location){
         Maps mockmap = mock(Maps.class);
         mockmap.onLocationChanged(location);
-        assertTrue(mockmap.isLocationChanged(location));
+        assertTrue(mockmap.isLocationChanged());
     }
 
 

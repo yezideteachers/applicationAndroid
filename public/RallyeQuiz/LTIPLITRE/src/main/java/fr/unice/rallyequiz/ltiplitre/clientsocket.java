@@ -1,22 +1,16 @@
 package fr.unice.rallyequiz.ltiplitre;
 
 import android.app.Activity;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.lang.Thread;
 
 /**
  * Created by hasso on 19/04/14.
@@ -31,6 +25,7 @@ public class clientsocket extends Activity {
     private Button button;
     private String messsage;
     private TextView tex;
+     String mess="";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,14 +50,15 @@ public class clientsocket extends Activity {
 
                         try {
 
-                            client = new Socket("192.168.1.37 ",4444);
+                            client = new Socket("192.168.1.100", 5446);
                             //client.connect();
 
-                            printwriter = new PrintWriter(client.getOutputStream(),true);
+                            printwriter = new PrintWriter(client.getOutputStream(), true);
                             printwriter.write(messsage);  //write the message to output stream
 
                             printwriter.flush();
                             printwriter.close();
+                            // inputStreamReader.close();
                             client.close();   //closing the connection
 
                         } catch (UnknownHostException e) {

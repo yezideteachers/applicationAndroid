@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="parcour">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="nom" type="xs:string" />
+				<xs:element name="epreuve">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="x" type="xs:decimal" />
+							<xs:element name="y" type="xs:decimal" />
+							<xs:element name="question" type="xs:string" />
+							<xs:element name="reponce">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="text" type="xs:string" />
+										<xs:element name="correction" type="xs:boolean" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

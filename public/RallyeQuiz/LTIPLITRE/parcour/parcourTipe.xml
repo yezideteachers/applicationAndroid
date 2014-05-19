@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<parcour xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="parcour.xsd">
+	<nom>parcourTipe</nom>
+	<epreuve>
+		<x>43.7159297</x>
+		<y>7.2638325</y>
+		<question>"Ou ete vous?"</question>
+		<reponce>
+			<text>"dans une fac"</texte>
+			<correction>true</correction>
+		</reponce>
+		<reponce>
+			<text>"perdu"</text>
+			<correction>false</correction>
+		</reponce>
+	</epreuve>
+	<epreuve>
+		<x>43.7159297</x>
+		<y>7.2638325</y>
+		<question>"qui est la?"</question>
+		<reponce>
+			<text>"person"</texte>
+			<correction>false</correction>
+		</reponce>
+		<reponce>
+			<text>"du monde"</text>
+			<correction>true</correction>
+		</reponce>
+	</epreuve>
+</parcour>
