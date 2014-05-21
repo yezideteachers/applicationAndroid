@@ -1,9 +1,10 @@
-//package android;
+package android;
 
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
  
@@ -20,37 +21,74 @@ public class Serveur {
     	
     	return ques;  	
     }
-	
-	
-	
-	 public static void ecrireSc(){
-	  try {
-		clientSocket = serverSocket.accept();
-		System.out.print("connexion etablie 2\n");
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}   //accept the client connection
-     
-       try {
-    	   System.out.println("debog 1 \n");
-		inputStreamReader = new InputStreamReader(clientSocket.getInputStream());
-		bufferedReader = new BufferedReader(inputStreamReader); //get the client message
-		 System.out.println("debog 2 \n");
-	       message = bufferedReader.readLine();
-	       System.out.println(message + "lalalalalalalala \n");
-	       serveurBD.ecrireScore(Long.parseLong(message)/100);
-	       System.out.println(message + "lalalalalalalala \n");
-	       inputStreamReader.close();
-	       clientSocket.close();
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+   
+   public static void ecrireSc(){
+	   final boolean []cond={true};
+       Thread lecture= new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub*/
+				while (cond[0]) {
+					try {
+						 System.out.println("1 \n");
+				    	   clientSocket = serverSocket.accept(); 
+				    	   inputStreamReader = new InputStreamReader(clientSocket.getInputStream());
+				    	   bufferedReader = new BufferedReader(inputStreamReader); //get the client message 
+				    	   
+					       message = bufferedReader.readLine();
+					       System.out.println(message + "3243242\n");
+					       if(message.length()>0){
+					    	   serveurBD.ecrireScore(Long.parseLong(message)/100);
+					    	//   inputStreamReader.close();
+					    	   //cond[0]=false;
+					       }
+					       clientSocket.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+				
+			}
+		});
+       lecture.start();
    
    }
    
    
+   public static boolean afficheQuestion(){
+	  final boolean  [] valreturn = null;
+	  valreturn[0] = true;
+	   Thread ecriture = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				 while (true) {
+			            try {
+			            	
+			                clientSocket = serverSocket.accept(); 
+			                System.out.print("connexion etablie \n");
+							PrintWriter p = new PrintWriter(clientSocket.getOutputStream());
+			                p.write(renvoyerLesQuestions());
+			                p.flush();
+			                p.close();
+							System.out.println(renvoyerLesQuestions());
+							
+							clientSocket.close();	
+			               
+			            } catch (IOException ex) {
+			                System.out.println("Problem in message reading");
+			               valreturn[0]= false;
+			            }
+			        }
+			}
+		});
+      ecriture.start();
+	return valreturn[0];
+   }
     /**
 	 * @param args
 	 */
@@ -59,35 +97,38 @@ public class Serveur {
 
  
         try {
-            serverSocket = new ServerSocket(8099);  //Server socket
+            serverSocket = new ServerSocket(3003);  //Server socket
    
         } catch (IOException e) {
             System.out.println("Could not listen on port: 54446");
         }
   
         System.out.println("serveur demarer et ecoute sur le port 4443");
- 
-        while (true) {
+       
+        /* while (true) {
             try {
- 
-                clientSocket = serverSocket.accept();   //accept the client connection
-              /*  inputStreamReader = new InputStreamReader(clientSocket.getInputStream());
-                bufferedReader = new BufferedReader(inputStreamReader); //get the client message
-                message = bufferedReader.readLine();
-				*/
-				 PrintWriter p = new PrintWriter(clientSocket.getOutputStream());
+            	
+                clientSocket = serverSocket.accept(); 
+                System.out.print("connexion etablie \n");
+				PrintWriter p = new PrintWriter(clientSocket.getOutputStream());
                 p.write(renvoyerLesQuestions());
                 p.flush();
                 p.close();
 				System.out.println(renvoyerLesQuestions());
-                
-               // inputStreamReader.close();
-                clientSocket.close();
- 
+				
+				clientSocket.close();	
+               
             } catch (IOException ex) {
                 System.out.println("Problem in message reading");
             }
-        }
+        }*/
+        ecrireSc();
+        
+     afficheQuestion();
+     
+     
+       
+        
  
     }
 }

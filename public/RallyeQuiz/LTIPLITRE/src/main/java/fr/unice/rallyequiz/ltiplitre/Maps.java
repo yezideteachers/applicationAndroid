@@ -216,7 +216,7 @@ public class Maps extends Activity implements LocationListener,Runnable{
            thread.start();
         }
         /*si le joueur est arrivé on lui affichage le temps qu'il a mis*/
-        else if(distance>=0 && distance<=0.2){
+        if(distance>=0 && distance<=0.2){
             String s=TempsCourse.formatTime(System.nanoTime()-startTime);
             afficherScore(s);
             TempsCourse.stockerScore(startTime);

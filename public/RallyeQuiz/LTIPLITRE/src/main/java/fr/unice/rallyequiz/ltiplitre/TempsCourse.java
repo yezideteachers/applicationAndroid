@@ -78,7 +78,7 @@ public class TempsCourse extends Activity {
                     //client.connect();
                     PrintWriter printwriter = new PrintWriter(client.getOutputStream(), true);
                     printwriter.write(message);  //write the message to output stream
-
+                    System.out.println(message + "\n");
                     printwriter.flush();
                     printwriter.close();
                     client.close();   //closing the connection
@@ -88,8 +88,8 @@ public class TempsCourse extends Activity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
             }
+
         }).start();
     }
 
