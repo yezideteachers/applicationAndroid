@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="mockito-all-1.9.5">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libs/mockito-all-1.9.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/LTIPLITRE/libs/mockito-all-1.9.5.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

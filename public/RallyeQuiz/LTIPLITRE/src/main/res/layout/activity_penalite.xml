@@ -9,7 +9,7 @@
     tools:context="fr.unice.rallyequiz.ltiplitre.Penalite">
 
     <TextView
-        android:text="@string/penalite"
+        android:text="Patientez"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

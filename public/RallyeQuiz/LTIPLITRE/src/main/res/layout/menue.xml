@@ -19,8 +19,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" Jouer"
-        android:id="@+id/jouer"
+        android:text="inscription"
+        android:id="@+id/inscrire"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.03"
         android:textSize="@dimen/normal_padding"
@@ -29,8 +29,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Quiter"
-        android:id="@+id/decone"
+        android:text="Connexion"
+        android:id="@+id/connecter"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.17"
         android:textSize="@dimen/normal_padding" />

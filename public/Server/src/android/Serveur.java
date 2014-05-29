@@ -9,8 +9,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
  
 public class Serveur {
- /*problem de push*/
- /*problem de push*/
+ 
     private static ServerSocket serverSocket;
     private static Socket clientSocket;
     private static InputStreamReader inputStreamReader;
@@ -96,9 +95,6 @@ public class Serveur {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		Xml test = new Xml();
-		test.read("parcourTipe.xml");
-		System.out.println(test.getCoordoner());
  
         try {
             serverSocket = new ServerSocket(3003);  //Server socket
@@ -129,6 +125,11 @@ public class Serveur {
         ecrireSc();
         
      afficheQuestion();
+     
+     
+       
+        
+ 
     }
 }
 

@@ -64,15 +64,26 @@ public class Inscription extends Activity {
 
                         try {
 
-                            client = new Socket("192.168.1.37", 3003);
+                            client = new Socket("10.0.3.2", 3003);
                             //client.connect();
-                            messsage = pseudo.getText().toString()+";"+pass.getText().toString();
+                            messsage = "Inscription; "+ pseudo.getText().toString()+";"+pass.getText().toString();
                             printwriter = new PrintWriter(client.getOutputStream(), true);
                             printwriter.write(messsage);  //write the message to output stream
 
                             printwriter.flush();
                             printwriter.close();
-                            // inputStreamReader.close();
+
+                            InputStreamReader inputStreamReader = new InputStreamReader(client.getInputStream());
+                            BufferedReader bufferedReader = new BufferedReader(inputStreamReader); //get the client message
+                            messsage = bufferedReader.readLine();
+                            System.out.println(messsage);
+                            if(messsage.equals("connexion reussi")){
+                                Intent intent = new Intent(Inscription.this, Maps.class);
+                                startActivity(intent);
+
+                            }
+
+
                             client.close();   //closing the connection
 
                         } catch (UnknownHostException e) {

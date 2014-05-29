@@ -20,14 +20,24 @@ public class MainActivity extends Activity{
         setContentView(R.layout.menue);
 
 
-        final Button loginButton = (Button) findViewById(R.id.jouer);
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        final Button signinButton = (Button) findViewById(R.id.inscrire);
+        signinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Maps.class);
+                Intent intent = new Intent(MainActivity.this,  Inscription.class);
                 startActivity(intent);
             }
         });
+
+        final Button loginButton = (Button) findViewById(R.id.connecter);
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,  Connexion.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
 

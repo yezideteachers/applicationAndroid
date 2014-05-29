@@ -1,17 +1,14 @@
 package fr.unice.rallyequiz.ltiplitre;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.content.DialogInterface;
 import android.support.v4.app.FragmentActivity;
-import android.util.FloatMath;
 
 import com.google.android.gms.maps.model.LatLng;
 
 
-public class Perimetre extends FragmentActivity {
-    double d2r = 180/ Math.PI;
+public class  Perimetre extends FragmentActivity {
+    static double d2r = 180/ Math.PI;
 
     public void detecterPosition() {
 
@@ -28,7 +25,7 @@ public class Perimetre extends FragmentActivity {
         alert.show();
     }
 
-    public double distanceEntreDeuxPoints(LatLng l1, LatLng l2) {
+    public static double distanceEntreDeuxPoints(LatLng l1, LatLng l2) {
         int R =  6371 ;
         double lat1 = l1.latitude/d2r;
         double lat2 = l2.latitude/d2r;

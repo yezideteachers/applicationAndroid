@@ -24,6 +24,8 @@ public class Connexion extends Activity {
     TextView text;
     private String messsage;
     private PrintWriter printwriter;
+   // private BufferedReader input;
+    private  String resultat;
 
     /* Réponse JSON */
     private static String KEY_SUCCESS = "success";
@@ -43,6 +45,7 @@ public class Connexion extends Activity {
         connect.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
+
                 new Thread(new Runnable() {
 
                     public void run() {
@@ -50,25 +53,36 @@ public class Connexion extends Activity {
 
                         try {
 
-                            client = new Socket("192.168.1.37", 3003);
+                            client = new Socket("192.168.31.245", 3003);
                             //client.connect();
-                            messsage = pseudo.getText().toString() + ";" + pass.getText().toString();
-                            printwriter = new PrintWriter(client.getOutputStream(), true);
-                            printwriter.write(messsage);  //write the message to output stream
 
-                            printwriter.flush();
-                            printwriter.close();
-                            InputStreamReader inputStreamReader = new InputStreamReader(client.getInputStream());
-                            BufferedReader bufferedReader = new BufferedReader(inputStreamReader); //get the client message
-                            messsage = bufferedReader.readLine();
-                            System.out.println(messsage);
-                            //if(messsage.equals("connexion reussi")){
-                            //Intent intent = new Intent(Connexion.this, Maps.class);
-                            //startActivity(intent);
-                            text.setText(messsage);
-                            //}
 
-                            client.close();   //closing the connection
+                            while(true) {
+                                messsage = "Connexion; " + pseudo.getText().toString() + ";" + pass.getText().toString();
+
+                                InputStreamReader input = new InputStreamReader(client.getInputStream());
+                                BufferedReader bufferedReader = new BufferedReader(input); //get the client message
+                                printwriter = new PrintWriter(client.getOutputStream(), true);
+                                printwriter.write(messsage);  //write the message to output stream
+                                printwriter.flush();
+                                printwriter.close();
+
+
+                               // resultat = bufferedReader.readLine();
+
+                             //   System.out.println(bufferedReader.readLine());
+                               // if (messsage.equals("connexion reussi")) {
+                                    Intent intent = new Intent(Connexion.this, Maps.class);
+                                    startActivity(intent);
+                                    //text.setText(messsage);
+//                                }
+
+
+                                input.close();
+
+
+                                client.close();
+                            }//closing the connection
 
                         } catch (UnknownHostException e) {
                             e.printStackTrace();
@@ -79,7 +93,8 @@ public class Connexion extends Activity {
                     }
                 }).start();
 
-
+                Intent intent = new Intent(Connexion.this, Maps.class);
+                startActivity(intent);
             }
         });
     }

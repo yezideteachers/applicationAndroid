@@ -1,6 +1,36 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!--<?xml version="1.0" encoding="utf-8"?> !-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="5dip"
+    android:paddingRight="5dip"
+    android:paddingTop="5dip"
+    android:paddingBottom="5dip"
+    >
+
+
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/map"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:name="com.google.android.gms.maps.MapFragment"/>
+
+    <Button
+        android:id="@+id/avancer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
+        android:text="avancer" />
+
+    <Button
+        android:id="@+id/reculer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dip"
+        android:text="reculer" />
+
+
+
+</RelativeLayout>

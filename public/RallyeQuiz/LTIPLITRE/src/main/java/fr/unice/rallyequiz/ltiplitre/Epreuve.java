@@ -46,11 +46,14 @@ public class Epreuve extends FragmentActivity{
 
         map.setMyLocationEnabled(true);
 
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(epreuve1, 15));
+      map.moveCamera(CameraUpdateFactory.newLatLngZoom(epreuve1, 10));
         map.addMarker(new MarkerOptions()
                 .title("E1")
                 .snippet("epreuve 1")
                 .position(epreuve1));
+
+
+
 
     }
 

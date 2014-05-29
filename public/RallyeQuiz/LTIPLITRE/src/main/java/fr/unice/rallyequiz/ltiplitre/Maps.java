@@ -17,11 +17,13 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -34,12 +36,14 @@ import static android.widget.Toast.LENGTH_LONG;
 
 public class Maps extends Activity implements LocationListener,Runnable{
 
-    Epreuve e = new Epreuve(43.72, 07.24);
+    Epreuve e = new Epreuve(43.7, 07.4);
     LatLng l1 = new LatLng(e.getPositionx(),e.getPositiony());
     private LocationManager locationManager;
     double latitude;
     double longitude;
     double altitude;
+    static boolean a_t_il_repondu=false;
+    boolean est_il_questionne = false;
     Perimetre p = new Perimetre();
     Criteria criteria = new Criteria();
     String provider ;
@@ -48,6 +52,8 @@ public class Maps extends Activity implements LocationListener,Runnable{
     Location location;
     double distance;
     private ProgressDialog mprogressDialog;
+    double latdepl =0.0;
+    double londepl = 0.0;
 
 
     ArrayList array = new ArrayList<CharSequence[]>();
@@ -60,8 +66,7 @@ public class Maps extends Activity implements LocationListener,Runnable{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.maps);
 
-     locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 
         provider = locationManager.getBestProvider(criteria, false);
@@ -69,19 +74,87 @@ public class Maps extends Activity implements LocationListener,Runnable{
         if (location != null) {
             this.latitude = location.getLatitude();
             this.longitude = location.getLongitude();
+            latdepl = location.getLatitude();
+            londepl = location.getLongitude();
             startTime = System.nanoTime();
-        }
-        else{
+        } else {
             Toast.makeText(this, "couldn't get provider", LENGTH_LONG).show();
         }
 
+
+
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+        LatLng epreuve = new LatLng(e.getPositionx(), e.getPositiony());
 
         e.positioneperueve(map);
 
+        /*
+        affichage et mise à jour des coordonnées du joueur
+         */
+        msg = String.format(
+                getResources().getString(R.string.new_location), latitude,
+                longitude, altitude, distance);
+        Toast.makeText(this, msg, LENGTH_LONG).show();
+
+
+
+        final Thread thread = new Thread(this);
+
+
+
+        final Button avancerButton = (Button) findViewById(R.id.avancer);
+
+        avancerButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if ((e.getPositionx() - latdepl) < 0.01 && (e.getPositionx() - latdepl) >= 0) {
+                    latdepl = location.getLatitude();
+                }
+                else{
+                    latdepl +=0.001;
+                }
+                if ((e.getPositiony() - londepl) < 0.001 && (e.getPositiony() - londepl) >= 0){
+                    londepl = location.getLongitude();
+                }
+                else{
+                    londepl +=0.001;
+                }
+                System.out.println("#################################################### \n" + latdepl + "##### \n" +londepl) ;
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latdepl,londepl), 10));
+                map.addMarker(new MarkerOptions()
+                        .title("E1")
+                        .snippet("Rally Quiz")
+                        .position(new LatLng(latdepl,londepl)));
+
+                distance = p.distanceEntreDeuxPoints(l1,new LatLng(latdepl,londepl));
+
+        /*
+        questionner le joueur quand il arrive à 200m du point final
+         */
+
+                if(estIlProche(l1, new LatLng(latitude, longitude)) && !est_il_questionne){  //(distance<=1.0 && distance>=0.2)
+                    questionnerJoueur();
+                    thread.start();
+
+                }
+
+        /*si le joueur est arrivé on lui affichage le temps qu'il a mis*/
+                if(distance==0){
+                    String s=TempsCourse.formatTime(System.nanoTime()-startTime);
+                    afficherScore(s);
+                    TempsCourse.stockerScore(startTime);
+                    Intent intent = new Intent(Maps.this, MainActivity.class);
+                    startActivity(intent);
+                }
+
+
+
+            }
+        });
+
+
     }
-
-
 
 
     @Override
@@ -93,13 +166,32 @@ public class Maps extends Activity implements LocationListener,Runnable{
         return true;
     }
 
+    public void gererView(){
+        final CharSequence [] items ={"Allez à la position du joueur"};
+        final LatLng joueur = new LatLng(this.latitude, this.longitude);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(items[0]);
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(joueur, 10));
+
+
+
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
@@ -120,40 +212,59 @@ public class Maps extends Activity implements LocationListener,Runnable{
     }
     public void questionnerJoueur() {
         Random random = new Random();
-
-        int indexQuiz = random.nextInt(2); //pour le moment on que deux questions dans la BD
+        est_il_questionne=true;
+        int indexQuiz = random.nextInt(2); //pour le moment on a que deux questions dans la BD
         String s=Question.recupererLesQuestions();
         String[] question;
-        if(Question.recupererLesQuestions()!=null) {
-            question  = listeQuestions(s).get(indexQuiz);
-        }
-        else{
-            question = new String[]{"Question ", " ", " ", " "};
-        }
-        CharSequence [] qcm = {question[0],question[1],question[2],question[3]};
-        final CharSequence[] items = new CharSequence[2];
-        items[0]=qcm[2];
-        items[1]=qcm[3];
-        array.add(items);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(qcm[0]);
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String choice = (String) items[which];
-                try {
-                    verifier(choice);
-                } catch (InterruptedException e1) {
-                    e1.printStackTrace();
+        if(Question.recupererLesQuestions()!=null) {
+            question = listeQuestions(s).get(indexQuiz);
+
+
+            CharSequence[] qcm = {question[0], question[1], question[2], question[3]};
+            final CharSequence[] items = new CharSequence[2];
+           items[0] = qcm[1];
+           // items[1] = qcm[3];
+            array.add(items);
+
+            builder.setTitle(qcm[0]);
+            builder.setItems(items, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String choice = (String) items[which];
+                    try {
+
+                        verifier(choice);
+
+                    } catch (InterruptedException e1) {
+                        e1.printStackTrace();
+                    }
+
+
                 }
 
+            });
+        }
+
+        else{
+            question = new String[]{"Problem rencontré de la partie serveur ", "resoudre le problem", " ", " "};
+
+            builder.setTitle(question[0]);
+            final CharSequence[] items = new CharSequence[1];
+            items[0]=question[0];
+            builder.setItems(items, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String choice = (String) items[which];
 
 
-            }
 
-        });
+                }
 
+            });
+        }
 
+       est_il_questionne=true;
        mprogressDialog = new ProgressDialog(this);
         // Message de la barre de progression
         //  mprogressDialog.setMessage("Chargement en cours...");
@@ -166,44 +277,59 @@ public class Maps extends Activity implements LocationListener,Runnable{
         alert.show();
         // Affichage de la barre de progression
         mprogressDialog.show();
+
     }
 
     public void verifier(String choice) throws InterruptedException {
+
+        a_t_il_repondu=true;
         CharSequence [] ch = (CharSequence[]) array.get(0);
         String s="";
         if(choice.equals(ch[1])) {
-            s="bonne reponse : "+ch[1];
+
+            s="bonne reponse : "+ch[0];
             Toast.makeText(this,s , LENGTH_LONG).show();
+
         }
         else {
 
             Intent intent = new Intent(Maps.this, Penalite.class);
             startActivity(intent);
 
+
         }
+
+
 
     }
 
 
     @Override
     public void onLocationChanged(Location location) {
+
+
         latitude = location.getLatitude();
-        longitude = location.getLongitude();
+        longitude =location.getLongitude();
+
         Question.recupererLesQuestions();
         Marker marker =map.addMarker(new MarkerOptions()
-                .position(new LatLng(latitude,longitude))
+                .position(new LatLng(this.latitude,this.latitude))
                 .title("Joueur")
                 .snippet("game is cool")
-                .icon(BitmapDescriptorFactory
-                        .fromResource(R.drawable.ic_launcher)));
+                        .position(new LatLng(this.latitude, this.latitude)));
+
+        LatLng j = new LatLng(latdepl, londepl);
+
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(j, 10));
+
 
         /*
         affichage et mise à jour des coordonnées du joueur
          */
-        msg = String.format(
+      /*  msg = String.format(
                 getResources().getString(R.string.new_location), latitude,
                 longitude, altitude, distance);
-        Toast.makeText(this, msg, LENGTH_LONG).show();
+        Toast.makeText(this, msg, LENGTH_LONG).show();*/
 
         distance = p.distanceEntreDeuxPoints(l1,new LatLng(latitude,longitude));
 
@@ -211,15 +337,19 @@ public class Maps extends Activity implements LocationListener,Runnable{
         questionner le joueur quand il arrive à 1km du point final
          */
         Thread thread = new Thread(this);
-        if(distance<=1.0 && distance>=0.2){
+        if(estIlProche(l1, new LatLng(latitude, longitude)) && !est_il_questionne){
            this.questionnerJoueur();
-           thread.start();
+            thread.start();
+
         }
+
         /*si le joueur est arrivé on lui affichage le temps qu'il a mis*/
-        if(distance>=0 && distance<=0.2){
+        if(distance==0){
             String s=TempsCourse.formatTime(System.nanoTime()-startTime);
             afficherScore(s);
             TempsCourse.stockerScore(startTime);
+            Intent intent = new Intent(Maps.this, MainActivity.class);
+            startActivity(intent);
         }
 
 
@@ -239,7 +369,17 @@ public class Maps extends Activity implements LocationListener,Runnable{
         alertDialog.show();
     }
 
-    public boolean isLocationChanged(){
+    public static boolean  estIlProche(LatLng pos1, LatLng pos2){
+         double distance = Perimetre.distanceEntreDeuxPoints(pos1, pos2);
+        if(distance<0.1){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public static boolean isLocationChanged(Location location){
         return (location != null);
     }
 
@@ -291,6 +431,8 @@ public class Maps extends Activity implements LocationListener,Runnable{
                 default:
                     // Fermer le message
                     mprogressDialog.dismiss();
+
+
             }
         }
     };
@@ -324,9 +466,13 @@ public class Maps extends Activity implements LocationListener,Runnable{
             handler.sendEmptyMessage(5);
             Thread.sleep(3000);
             handler.sendEmptyMessage(6);
-            mprogressDialog.dismiss();
             Intent intent = new Intent(Maps.this, Penalite.class);
-            //startActivity(intent);
+            if(!a_t_il_repondu){startActivity(intent);}
+        /*    a_t_il_repondu=true;
+            Intent intent2 = new Intent(Maps.this, Penalite.class);
+            startActivity(intent);
+            System.out.println("###################################################################################");
+*/
 
         } catch (InterruptedException e) {
             e.printStackTrace();

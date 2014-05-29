@@ -65,6 +65,14 @@
             android:name="fr.unice.rallyequiz.ltiplitre.Question"
             android:label="@string/title_activity_penalite" >
         </activity>
+        <activity
+            android:name="fr.unice.rallyequiz.ltiplitre.Inscription"
+            android:label="sinscrire" >
+        </activity>
+        <activity
+            android:name="fr.unice.rallyequiz.ltiplitre.Connexion"
+            android:label="se connecter" >
+        </activity>
     </application>
 
 </manifest>

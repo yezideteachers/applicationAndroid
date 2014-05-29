@@ -13,7 +13,6 @@ public class Serveur {
     private static BufferedReader bufferedReader;
     private static String message;
     private static serveurBD bd = new serveurBD();
-    private static String resultat;
  
   public static String renvoyerLesQuestions(){
     	String ques = bd.recupererQuestions();
@@ -47,30 +46,24 @@ public class Serveur {
             try {
  
                 clientSocket = serverSocket.accept();   //accept the client connection
-
-				 PrintWriter p = new PrintWriter(clientSocket.getOutputStream());
-                p.write("hello");
                 inputStreamReader = new InputStreamReader(clientSocket.getInputStream());
                 bufferedReader = new BufferedReader(inputStreamReader); //get the client message
                 message = bufferedReader.readLine();
                 String[] m = message.split(";");
-                String ordre = m[0];
-                String pseudo = m[1];
-                String pass = m[2];
-                System.out.println(ordre);
+                String pseudo = m[0];
+                String pass = m[1];
+		        bd.inscription(pseudo,pass);
+		        String req = connect(pseudo,pass);
+		
+		
+				
+				 PrintWriter p = new PrintWriter(clientSocket.getOutputStream());
+                 p.write(req);
+                 p.flush();
+                 p.close();
+				 //System.out.println(renvoyerLesQuestions());
                 
-                if(ordre.equalsIgnoreCase("Inscription")){
-                	resultat = bd.inscription(pseudo,pass);
-                	System.out.println(resultat);
-                	
-                }
-                else{
-                	resultat = connect(pseudo,pass);
-    		        System.out.println(resultat);
-                }
-		        
-                
-               inputStreamReader.close();
+               // inputStreamReader.close();
                 clientSocket.close();
  
             } catch (IOException ex) {

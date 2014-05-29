@@ -47,8 +47,8 @@ public class serveurBD {
 	    	
 	    }
 
-            public static String inscription(String pseudo , String pass){
-		     String s ="";
+            public static void inscription(String pseudo , String pass){
+		     // String s ="";
 		  try {
 			p = new Properties();
 			
@@ -56,17 +56,7 @@ public class serveurBD {
 		    p.put("password","diallo");
 		    Connection c = DriverManager.getConnection(CONNECTION,p);
 		    st = c.createStatement();
-		    try{
-		    	st.executeUpdate("INSERT INTO joueur (pseudo,passeword) VALUES('"+pseudo+"','"+pass+"')");
-		    	s="inscription reussie";
-		    }
-		   catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				s ="inscription echouée";
-			}
-		    
-        	
+        	st.executeUpdate("INSERT INTO joueur (pseudo,passeword) VALUES('"+pseudo+"','"+pass+"')");
         	
  		    st.close();
 		    st.close();
@@ -74,7 +64,7 @@ public class serveurBD {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 return s;
+		 
             }
             
             

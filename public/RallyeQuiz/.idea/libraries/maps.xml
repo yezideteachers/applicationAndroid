@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="maps">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libs/maps.jar!/" />
+      <root url="jar://$PROJECT_DIR$/LTIPLITRE/libs/maps.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
