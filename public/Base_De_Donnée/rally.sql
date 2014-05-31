@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: 127.0.0.1
--- Généré le: Lun 26 Mai 2014 à 00:34
+-- Généré le: Sam 31 Mai 2014 à 01:49
 -- Version du serveur: 5.5.27-log
 -- Version de PHP: 5.4.6
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `joueur` (
   `Pseudo` varchar(20) NOT NULL,
   `MotDePasse` varchar(20) NOT NULL,
-  `Score` bigint(20) NOT NULL,
+  `Score` text NOT NULL,
   PRIMARY KEY (`Pseudo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -38,10 +38,10 @@ CREATE TABLE IF NOT EXISTS `joueur` (
 --
 
 INSERT INTO `joueur` (`Pseudo`, `MotDePasse`, `Score`) VALUES
-('joueur1', 'pass', 0),
-('joueur2', 'pass', 0),
-('joueur3', 'pass', 0),
-('joueur4', 'pass', 0);
+('joueur1', 'pass', '27.197902044'),
+('joueur2', 'pass', '0'),
+('joueur3', 'pass', '0'),
+('joueur4', 'pass', '0');
 
 -- --------------------------------------------------------
 
@@ -77,7 +77,10 @@ CREATE TABLE IF NOT EXISTS `question` (
 --
 
 INSERT INTO `question` (`Question`, `Reponse`, `Choix1`, `Choix2`) VALUES
-('le chiffre 21 est representé en binaire par 1101', 'non', 'oui', 'non'),
+('156 est divisible par 3', 'oui', 'non', 'oui'),
+('257 est divisible par 17', 'non', 'oui', 'non'),
+('le chiffre 23 est premier', 'oui', 'oui', 'non'),
+('le chiffre 51 est representé en binaire par 110101', 'non', 'oui', 'non'),
 ('Le GC existe dans le langage C', 'non', 'oui', 'non');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

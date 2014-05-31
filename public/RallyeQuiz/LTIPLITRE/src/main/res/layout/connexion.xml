@@ -15,8 +15,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/normal_padding"
-            android:src="@drawable/android"
-            android:contentDescription="@string/image_content_description" />
+            android:src="@drawable/coureur"
+            android:contentDescription="coureur" />
 
         <TextView
             android:layout_width="fill_parent"

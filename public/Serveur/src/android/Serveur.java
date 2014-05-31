@@ -9,13 +9,13 @@ import java.net.ServerSocket;
 import java.net.Socket;
  
 public class Serveur {
- /*problem de push*/
- /*problem de push*/
+ 
     private static ServerSocket serverSocket;
     private static Socket clientSocket;
     private static InputStreamReader inputStreamReader;
     private static BufferedReader bufferedReader;
     private static String message;
+    static serveurBD sb = new serveurBD();
  
    public static String renvoyerLesQuestions(){
     	String ques = serveurBD.recupererQuestions();
@@ -25,22 +25,24 @@ public class Serveur {
    
    public static void ecrireSc(){
 	   final boolean []cond={true};
-       Thread lecture= new Thread(new Runnable() {
+   /*    Thread lecture= new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub*/
-				while (cond[0]) {
+				while (true) {
 					try {
-						 System.out.println("1 \n");
+						 
 				    	   clientSocket = serverSocket.accept(); 
 				    	   inputStreamReader = new InputStreamReader(clientSocket.getInputStream());
 				    	   bufferedReader = new BufferedReader(inputStreamReader); //get the client message 
-				    	   
+				    	   System.out.println("connexion \n");
 					       message = bufferedReader.readLine();
-					       System.out.println(message + "3243242\n");
+					       
 					       if(message.length()>0){
-					    	   serveurBD.ecrireScore(Long.parseLong(message)/100);
+					    	   System.out.println(message +"\n");
+					    	   sb.ecrireScore(message);
+					    	  
 					    	//   inputStreamReader.close();
 					    	   //cond[0]=false;
 					       }
@@ -49,23 +51,26 @@ public class Serveur {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+					
+					
+					
 				}
 				
 				
-			}
+		/*	}
 		});
        lecture.start();
-   
+   */
    }
    
    
-   public static boolean afficheQuestion(){
-	  final boolean  [] valreturn = null;
-	  valreturn[0] = true;
-	   Thread ecriture = new Thread(new Runnable() {
+   public static void afficheQuestion(){
+	/*  final boolean  [] valreturn = null;
+	  valreturn[0] = true;*/
+	/*   Thread ecriture = new Thread(new Runnable() {
 			
 			@Override
-			public void run() {
+			public void run() {*/
 				// TODO Auto-generated method stub
 				 while (true) {
 			            try {
@@ -82,54 +87,116 @@ public class Serveur {
 			               
 			            } catch (IOException ex) {
 			                System.out.println("Problem in message reading");
-			               valreturn[0]= false;
+			              // valreturn[0]= false;
 			            }
 			        }
 			}
-		});
+	/*	});
       ecriture.start();
-	return valreturn[0];
-   }
+	//return valreturn[0];
+	} * */
+	 
+   
     /**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		Xml test = new Xml();
-		test.read("parcourTipe.xml");
-		System.out.println(test.getCoordoner());
  
         try {
             serverSocket = new ServerSocket(3003);  //Server socket
+            
    
         } catch (IOException e) {
-            System.out.println("Could not listen on port: 54446");
+            System.out.println("Could not listen on port: "+serverSocket.getLocalPort());
         }
   
-        System.out.println("serveur demarer et ecoute sur le port 4443");
+        System.out.println("serveur demarer et ecoute sur le port: "+serverSocket.getLocalPort());
        
-        /* while (true) {
-            try {
-            	
-                clientSocket = serverSocket.accept(); 
-                System.out.print("connexion etablie \n");
-				PrintWriter p = new PrintWriter(clientSocket.getOutputStream());
-                p.write(renvoyerLesQuestions());
-                p.flush();
-                p.close();
-				System.out.println(renvoyerLesQuestions());
+        while(true){
+       
+            try {		 
+					clientSocket = serverSocket.accept(); 
+		    	   final PrintWriter p = new PrintWriter(clientSocket.getOutputStream());
+		    	 
+	            	   
+	            	   Thread ecriture = new Thread(new Runnable() {
+	           			
+	           			@Override
+	           			public void run() {   
+	           			 while(true){
+	  	            	  
+	  	            	   try {            		 
+	  	            		 inputStreamReader = new InputStreamReader(clientSocket.getInputStream());
+	  	            		  bufferedReader = new BufferedReader(inputStreamReader); //get the client message
+	  	            		  
+	  	            		  
+	  	            		  message = bufferedReader.readLine();
+	  	                    String[] m = message.split(";");
+	  	                    String ordre = m[0];
+	  	                   /* String pseudo = m[1];
+	  	                    String pass = m[2];*/
+	  	                    System.out.println(ordre);
+	  	                    
+	  	                    if(ordre.equalsIgnoreCase("Inscription")){
+	  	                     String resultat = sb.inscription(m[1],m[2]);
+	  	                     System.out.println(resultat);
+	  	                     p.println(resultat);
+	  	                     
+	  	                    }
+	  	                    if(ordre.equalsIgnoreCase("Connexion")){
+	  	                    	String resultat = sb.connexion(m[1],m[2]);
+	  	                    	System.out.println(resultat);
+	  	                    	p.println(resultat);
+	  	                    }
+	  	                    
+	  	                  if(ordre.equalsIgnoreCase("Score")){
+	  	                    	sb.ecrireScore(m[1]);
+	  	                    	System.out.println("score : "+ m[1] +"\n");
+	  	                    }
+	  	                  
+	  	                if(ordre.equalsIgnoreCase("delete")){
+  	                    	sb.deleteQuestion(m[1]);
+  	                    	System.out.println("question supprimée : "+ m[1] +"\n");
+  	                    }
+	  	            			
+
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							System.out.println(	"inputStreamReadere vide ligne 131 ");
+						}   
+	  	            	 
+	               }
+	           			}});
+	            	   ecriture.start();
+			      
+	               
+					System.out.println("liste des questions :"+renvoyerLesQuestions()+"\n");
+					
+	            	   p.write(renvoyerLesQuestions());
+		               p.flush();
+		              
+					p.close();
+					bufferedReader.close(); 
+					 clientSocket.close();
+			       
+			      
 				
-				clientSocket.close();	
-               
+				
+					
             } catch (IOException ex) {
                 System.out.println("Problem in message reading");
+              // valreturn[0]= false;
             }
-        }*/
-        ecrireSc();
+        }
         
-     afficheQuestion();
-    }
+
+        
 }
+}
+        
+        
+
 
 

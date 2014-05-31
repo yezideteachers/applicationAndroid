@@ -1,18 +1,5 @@
 package fr.unice.rallyequiz.ltiplitre;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,6 +9,20 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class Connection extends Activity
 {
@@ -173,10 +174,10 @@ public class Connection extends Activity
                             db.addUser(jObj.getString(KEY_NAME), jObj.getString(KEY_EMAIL), jObj.getString(KEY_UID), jObj.getString(KEY_CREATED_AT));
                             Toast.makeText(getApplicationContext(), "Success Login", Toast.LENGTH_SHORT).show();
               /* Lancement de l'Activity "DashBoard" */
-                            Intent dashboard = new Intent(getApplicationContext(), DashboardActivity.class);
+                         /*   Intent dashboard = new Intent(getApplicationContext(), DashboardActivity.class);
                             dashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(dashboard);
-                            finish();
+                            finish();*/
                         }
 
                         else

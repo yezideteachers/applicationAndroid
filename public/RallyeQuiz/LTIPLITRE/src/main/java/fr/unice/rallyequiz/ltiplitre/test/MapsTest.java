@@ -50,7 +50,7 @@ public class MapsTest extends InstrumentationTestCase {
 
 
 
-    public void testEstIlProche() throws IOException {
+    public void testEstProche() throws IOException {
 
         Location location = mock(Location.class);
         Location nextLocation = mock(Location.class);
@@ -61,7 +61,7 @@ public class MapsTest extends InstrumentationTestCase {
         LatLng l1 = new LatLng(location.getLatitude(), location.getLongitude());
         LatLng l2 = new LatLng(nextLocation.getLatitude(), nextLocation.getLongitude());
 
-        assertEquals(Maps.estIlProche(l1, l2), true);
+        assertEquals(Maps.estProche(l1, l2), true);
 
     }
 
@@ -111,14 +111,26 @@ public class MapsTest extends InstrumentationTestCase {
         assertTrue(Maps.isLocationChanged(location));
     }
 
-   /* public void testVerifier() throws IOException, InterruptedException {
-        Maps map = mock(Maps.class);
-        CharSequence [] choix = {"","vrai"};
+    public void testVerifier() throws IOException, InterruptedException {
+        Maps map = new Maps();
+        String  choix = "vrai";
         String reponse = "vrai";
-        boolean rep = false;  //rep va vouloir tru si le joueur a repondu juste
-        map.verifier(reponse);
-        assertEquals(rep);
-    }*/
+        assertEquals(map.verifier(reponse,choix),true);
+    }
+
+    public void testEstArrive(){
+
+        Location location = mock(Location.class);
+        Location nextLocation = mock(Location.class);
+        Mockito.when(location.getLatitude()).thenReturn(43.7);
+        Mockito.when(location.getLongitude()).thenReturn(07.2);
+        Mockito.when(nextLocation.getLatitude()).thenReturn(43.7);
+        Mockito.when(nextLocation.getLongitude()).thenReturn(07.2);
+        LatLng l1 = new LatLng(location.getLatitude(), location.getLongitude());
+        LatLng l2 = new LatLng(nextLocation.getLatitude(), nextLocation.getLongitude());
+
+        assertEquals(map.estArrive(l1, l2), true);
+    }
 
 
 

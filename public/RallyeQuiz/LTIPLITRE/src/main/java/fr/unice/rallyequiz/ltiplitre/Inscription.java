@@ -1,33 +1,17 @@
 package fr.unice.rallyequiz.ltiplitre;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONObject;
-
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 public class Inscription extends Activity {
     private Socket client;
@@ -35,6 +19,7 @@ public class Inscription extends Activity {
     Button btnLinkToLogin;
     EditText pseudo;
     EditText pass;
+    //edit text
     EditText f;
     private String messsage;
     private PrintWriter printwriter;
@@ -64,7 +49,7 @@ public class Inscription extends Activity {
 
                         try {
 
-                            client = new Socket("10.0.3.2", 3003);
+                            client = new Socket("192.168.31.245", 3003);  //"10.0.3.2"
                             //client.connect();
                             messsage = "Inscription; "+ pseudo.getText().toString()+";"+pass.getText().toString();
                             printwriter = new PrintWriter(client.getOutputStream(), true);
@@ -78,7 +63,7 @@ public class Inscription extends Activity {
                             messsage = bufferedReader.readLine();
                             System.out.println(messsage);
                             if(messsage.equals("connexion reussi")){
-                                Intent intent = new Intent(Inscription.this, Maps.class);
+                                Intent intent = new Intent(Inscription.this, Joueur.class);
                                 startActivity(intent);
 
                             }

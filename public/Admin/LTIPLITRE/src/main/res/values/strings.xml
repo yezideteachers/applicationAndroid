@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Admin</string>
+    <string name="question_button">QUESTIONS</string>
+    <string name="joueur_button">JOUEURS</string>
+    <string name="admin_content">APPLICATON\nADMIN</string>
+    <string name="title_activity_question">Question</string>
+    <string name="dummy_content">LISTE \n DES QUESTONS</string>
+
+</resources>

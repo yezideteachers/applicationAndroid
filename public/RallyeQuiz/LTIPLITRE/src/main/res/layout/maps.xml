@@ -22,14 +22,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dip"
-        android:text="avancer" />
+        android:text="avancer"
+        android:textColor="#1031df"/>
 
     <Button
-        android:id="@+id/reculer"
+        android:id="@+id/accelerer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dip"
-        android:text="reculer" />
+        android:layout_marginTop="60dip"
+        android:text="accelerer"
+        android:textColor="#DB2128"/>
 
 
 

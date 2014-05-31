@@ -65,9 +65,12 @@ public class TempsCourse extends Activity {
     /*cette fonction permet de stocker le score du joueur dans la base de donnée en passant par le serveur
  *  le score va ètre en format du suite d'entier (nano-seconde)
  *  */
-    public static void stockerScore(long time){
-        final String message = ""+time;
-        new Thread(new Runnable() {
+    public static void envoyerScore(long time){
+
+        String stime =TempsCourse.formatTime(time);
+        String s[] = stime.split(" ");
+        final String  message=s[3];
+                new Thread(new Runnable() {
 
             public void run() {
                 //client = null;
@@ -78,7 +81,7 @@ public class TempsCourse extends Activity {
                     //client.connect();
                     PrintWriter printwriter = new PrintWriter(client.getOutputStream(), true);
                     printwriter.write(message);  //write the message to output stream
-                    System.out.println(message + "\n");
+                    System.out.println("1111111111111111111111111111111111111111111111111111111111111111111111111111"+message + "\n");
                     printwriter.flush();
                     printwriter.close();
                     client.close();   //closing the connection

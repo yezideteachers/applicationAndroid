@@ -53,10 +53,12 @@
             android:name="fr.unice.rallyequiz.ltiplitre.Connection"
             android:label="@string/title_activity_login" >
         </activity>
+        <!--
         <activity
             android:name="fr.unice.rallyequiz.ltiplitre.DashboardActivity"
             android:label="@string/title_activity_dashboard" >
-        </activity>
+        </activity> !
+        -->
         <activity
             android:name="fr.unice.rallyequiz.ltiplitre.Penalite"
             android:label="@string/title_activity_penalite" >
@@ -72,6 +74,14 @@
         <activity
             android:name="fr.unice.rallyequiz.ltiplitre.Connexion"
             android:label="se connecter" >
+        </activity>
+        <activity
+            android:name="fr.unice.rallyequiz.ltiplitre.Profil"
+            android:label="@string/title_activity_profil" >
+        </activity>
+        <activity
+            android:name="fr.unice.rallyequiz.ltiplitre.Joueur"
+            android:label="@string/title_activity_joueur" >
         </activity>
     </application>
 

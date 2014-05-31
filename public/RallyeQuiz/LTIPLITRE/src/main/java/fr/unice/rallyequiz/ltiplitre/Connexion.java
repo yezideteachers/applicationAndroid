@@ -72,7 +72,7 @@ public class Connexion extends Activity {
 
                              //   System.out.println(bufferedReader.readLine());
                                // if (messsage.equals("connexion reussi")) {
-                                    Intent intent = new Intent(Connexion.this, Maps.class);
+                                    Intent intent = new Intent(Connexion.this, Joueur.class);
                                     startActivity(intent);
                                     //text.setText(messsage);
 //                                }

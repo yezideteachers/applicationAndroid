@@ -1,0 +1,60 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="fr.unice.rallyequiz.ltiplitre.Joueur">
+
+    <TextView
+        android:text="Bonjour Joueur 1 :
+         \n choisissez votre group.
+        \n Cliquez sur jouer si vous voulez participer tout seul"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Continuer"
+        android:id="@+id/joueur2"
+        android:layout_marginTop="100dip"
+
+        android:layout_alignParentEnd="true"/>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Continuer"
+        android:id="@+id/joueur3"
+        android:layout_marginTop="150dip"
+
+        android:layout_alignParentEnd="true"/>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Continuer"
+        android:id="@+id/joueur4"
+        android:layout_marginTop="200dip"
+
+        android:layout_alignParentEnd="true"/>
+
+
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Jouer"
+        android:id="@+id/jouer"
+        android:layout_marginTop="280dip"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"/>
+
+</RelativeLayout>

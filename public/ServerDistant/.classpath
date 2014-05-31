@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry exported="true" kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER/App Engine"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/appengine-tools-api.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/objectify-3.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/ThiernoMamadouCellou/workspace/RallyQuizl3I/war/WEB-INF/lib/org.codehaus.jackson.core.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/ThiernoMamadouCellou/workspace/RallyQuizl3I/war/WEB-INF/lib/org.codehaus.jackson.mapper.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/ThiernoMamadouCellou/workspace/RallyQuizl3I/war/WEB-INF/lib/org.restlet.ext.jackson.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/ThiernoMamadouCellou/workspace/RallyQuizl3I/war/WEB-INF/lib/org.restlet.ext.servlet.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/ThiernoMamadouCellou/workspace/RallyQuizl3I/war/WEB-INF/lib/org.restlet.ext.xml.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/ThiernoMamadouCellou/workspace/RallyQuizl3I/war/WEB-INF/lib/org.restlet.jar"/>
+	<classpathentry kind="output" path="war/WEB-INF/classes"/>
+</classpath>

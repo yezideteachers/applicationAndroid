@@ -8,17 +8,26 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="fr.unice.rallyequiz.ltiplitre.Penalite">
 
+
     <TextView
-        android:text="Patientez"
+        android:text="Cliquez et patientez 10s"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/btnPenalite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dip"
+        android:text="Retourner au jeu" />
+
+
+    <ImageView
+        android:id="@+id/android_picture"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dip"
-        android:text="Cliquer ICI pour retourner au jeu" />
+        android:layout_marginTop="150dip"
+        android:src="@drawable/penalite"/>
 
 
 </RelativeLayout>
